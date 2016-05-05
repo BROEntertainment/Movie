@@ -73,7 +73,7 @@ class Movie
 		}
 };
 
-void Storing();
+
 string SearchByName(string);
 
 Movie MoviesArray[10];
