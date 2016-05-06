@@ -9,11 +9,11 @@ class Movie
 {
 	private:
 		string DVD_Title, Status, Genre;
-		string Price;
+		double Price;
 		string Year, DVD_ReleaseDate, ID;
 	public:
 		Movie(){};
-		Movie(string DVD_Title,string Status,string Price,string Year,string Genre,string DVD_ReleaseDate,string ID){};
+		Movie(string DVD_Title,string Status,double Price,string Year,string Genre,string DVD_ReleaseDate,string ID){};
 		~Movie(){};
 		void setDVD_Title(string MyDVD_Title)
 		{
@@ -27,7 +27,7 @@ class Movie
 		{
 			Genre = MyGenre;
 		}
-		void setPrice(string MyPrice)
+		void setPrice(double MyPrice)
 		{
 			Price = MyPrice;
 		}
@@ -55,7 +55,7 @@ class Movie
 		{
 			return Genre;
 		}
-		string getPrice()
+		double getPrice()
 		{
 			return Price;
 		}
@@ -73,18 +73,28 @@ class Movie
 		}
 };
 
-
-string SearchByName(string);
-
 Movie MoviesArray[10];
+
+string CompareMovies(string, string);
+string SearchByName(string);
+string SearchByID(string);
+int DisplayNumberGenres();
 
 int main()
 {
+double p = 6.99, o = 14.99;
+string l = "Discontinued", k = "Discontinued";
+string qwe="anan", qwer="baban";
+MoviesArray[0].setPrice(p);
+MoviesArray[0].setStatus(l);
+MoviesArray[0].setDVD_Title(qwe);
+MoviesArray[1].setPrice(o);
+MoviesArray[1].setStatus(k);
+MoviesArray[1].setDVD_Title(qwer);
 
 
-	Storing();
-
-	int a,b;
+    double sum = 0, average = 0;
+	int a,b,counter = 0;
 	string q,w,e,c;
 
 	cout << "(1)Search and display a movie by" << endl;
@@ -105,14 +115,14 @@ int main()
 							SearchByName(q);
                             break;
 					case 2: cin >> c;
-							//SearchByID(c);
+							SearchByID(c);
                             break;
 				}
 				break;
 		case 2: cout << "Enter two movies ID to compare: " << endl;
 				cin >> w;
 				cin >> e;
-				//CompareMovies(w, e);
+				CompareMovies(w, e);
 				break;
 		case 3: cout << "(1)Suspense" << endl;
 				cout << "(2)Foreign" << endl;
@@ -123,17 +133,41 @@ int main()
 				cin >> b;
 				switch(b)
 				{
-					case 1: //ListGenre(1);
+					case 1: for(int i=0;i<10;i++)
+                            {
+                                if(MoviesArray[i].getGenre() == "Suspense")
+                                    cout << MoviesArray[i].getDVD_Title();
+                            }
 							break;
-					case 2: //ListGenre(2);
+					case 2: for(int i=0;i<10;i++)
+                            {
+                                if(MoviesArray[i].getGenre() == "Foreign")
+                                    cout << MoviesArray[i].getDVD_Title();
+                            }
 							break;
-					case 3: //ListGenre(3);
+					case 3: for(int i=0;i<10;i++)
+                            {
+                                if(MoviesArray[i].getGenre() == "Comedy")
+                                    cout << MoviesArray[i].getDVD_Title();
+                            }
 							break;
-					case 4: //ListGenre(4);
+					case 4: for(int i=0;i<10;i++)
+                            {
+                                if(MoviesArray[i].getGenre() == "Western")
+                                    cout << MoviesArray[i].getDVD_Title();
+                            }
 							break;
-					case 5: //ListGenre(5);
+					case 5: for(int i=0;i<10;i++)
+                            {
+                                if(MoviesArray[i].getGenre() == "Music")
+                                    cout << MoviesArray[i].getDVD_Title();
+                            }
 							break;
-					case 6: //ListGenre(6);
+					case 6: for(int i=0;i<10;i++)
+                            {
+                                if(MoviesArray[i].getGenre() == "Drama")
+                                    cout << MoviesArray[i].getDVD_Title();
+                            }
 							break;
 				}
 				break;
@@ -144,19 +178,47 @@ int main()
 				cout << "(5)Display average price of 'Out' movies " << endl;
 				cout << "(6)Display average price of 'Cancelled' movies " << endl;
 				cin >> b;
+
 				switch(b)
 				{
-					case 1:
+					case 1: DisplayNumberGenres();
 							break;
-					case 2:
+					case 2: for(int i=0;i<10;i++) //i değeri kadar girdi yapılırsa çalışır.
+                            {
+                                    sum = sum + MoviesArray[i].getPrice();
+                                    counter++;
+                            }
+                                    average = sum / counter;
+                                    cout << average;
 							break;
 					case 3:
 							break;
-					case 4:
+					case 4: for(int i=0;i<10;i++)
+                            {
+                                if(MoviesArray[i].getStatus() == "Discontinued")
+                                    counter = counter + 1;
+                                    sum = sum + MoviesArray[i].getPrice();
+                            }
+                                    average = sum / (double)counter;
+                                    cout << average;
 							break;
-					case 5:
+					case 5: for(int i=0;i<10;i++)
+                            {
+                                if(MoviesArray[i].getStatus() == "Out")
+                                    counter = counter + 1;
+                                    sum = sum + MoviesArray[i].getPrice();
+                            }
+                                    average = sum / (double)counter;
+                                    cout << average;
 							break;
-					case 6:
+					case 6: for(int i=0;i<10;i++)
+                            {
+                                if(MoviesArray[i].getStatus() == "Canceled")
+                                    counter = counter + 1;
+                                    sum = sum + MoviesArray[i].getPrice();
+                            }
+                                    average = sum / (double)counter;
+                                    cout << average;
 							break;
 				}
 				break;
@@ -164,88 +226,71 @@ int main()
 				cin >> b;
 				//DisplayAfterInput(b);
 		case 0: break;
-	}
+	};
 
-
+return 0;
 }
+
+
+
 string SearchByName(string NewName)
 {
 	for(int i=0;i<10;i++)
 	{
 		if(MoviesArray[i].getDVD_Title() == NewName)
 		{
-			return MoviesArray[i].getDVD_Title();
+			cout << MoviesArray[i].getDVD_Title();
 		}
 	}
 
 }
-/*SearchByID(int NewID)
+string SearchByID(string NewID)
 {
-	for(int i=0;i<5195;i++)
+	for(int i=0;i<10;i++)
 	{
 		if(MoviesArray[i].getID() == NewID)
 		{
 			cout << MoviesArray[i].getDVD_Title();
 		}
 	}
-};
-CompareMovies(int Mov1, int Mov2)
+}
+string CompareMovies(string Mov1, string Mov2)
 {
-	for(int i=0;i<5195;i++)
+    bool v=false ,b=false;
+    double qw,we;
+	for(int i=0;i<10;i++)
 	{
+        if(MoviesArray[i].getID() == Mov1)
+            v = true;
+            
+        if(MoviesArray[i].getID() == Mov2)
+            b = true;
+            
+        while(b = true && v = true)
+
 
 	}
-};
-listGenre(int GenreID)
+}
+int DisplayNumberGenres()
 {
-	for(int i=0;i<5195;i++)
-	{
-
-	}
-};
-DisplayAfterInput(int NewDate)
-{
-	for(int i=0;i<5195;i++)
-	{
-
-	}
-};*/
-void Storing()
-{
-	ifstream in("DVD_list.txt");
-    stringstream buffer;
-    buffer << in.rdbuf();
-    string DVD_list = buffer.str();
-    cout << DVD_list << endl << endl;
-
-    size_t pos1 = 0;
-    size_t pos2;
-	
-	Movie MoviesArray[10];
-
-   for (int x=0; x<=10; x++)
-   {
-        pos2 = DVD_list.find("        ", pos1);
-        MoviesArray[x].setDVD_Title(DVD_list.substr(pos1, (pos2-pos1)));
-        pos1 = pos2+1;
-        pos2 = DVD_list.find("        ", pos1);
-        MoviesArray[x].setStatus(DVD_list.substr(pos1, (pos2-pos1)));
-        pos1 = pos2+1;
-        pos2 = DVD_list.find("        ", pos1);
-        MoviesArray[x].setPrice(DVD_list.substr(pos1, (pos2-pos1)));
-        pos1 = pos2+1;
-        pos2 = DVD_list.find("        ", pos1);
-        MoviesArray[x].setYear(DVD_list.substr(pos1, (pos2-pos1)));
-        pos1 = pos2+1;
-        pos2 = DVD_list.find("        ", pos1);
-        MoviesArray[x].setGenre(DVD_list.substr(pos1, (pos2-pos1)));
-        pos1 = pos2+1;
-        pos2 = DVD_list.find("        ", pos1);
-        MoviesArray[x].setDVD_ReleaseDate(DVD_list.substr(pos1, (pos2-pos1)));
-        pos1 = pos2+1;
-        pos2 = DVD_list.find("        ", pos1);
-        MoviesArray[x].setID(DVD_list.substr(pos1, (pos2-pos1)));
-        pos1 = pos2+1;
+    int
+    for(int i=0; i<10; i++)
+    {
+        switch(MoviesArray[i].getGenre())
+        {
+            case
+        }
     }
 }
+/*DisplayAfterInput(int NewDate)
+{
+	for(int i=0;i<5195;i++)
+	{
+
+	}
+}
+void Storing()
+{
+
+}*/
 
