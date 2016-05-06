@@ -78,22 +78,22 @@ Movie MoviesArray[10];
 string CompareMovies(string, string);
 string SearchByName(string);
 string SearchByID(string);
-int DisplayNumberGenres();
+//int DisplayNumberGenres();
 
 int main()
 {
 double p = 6.99, o = 14.99;
-string l = "Discontinued", k = "Discontinued";
+string l = "12345", k = "12346";
 string qwe="anan", qwer="baban";
 MoviesArray[0].setPrice(p);
-MoviesArray[0].setStatus(l);
+MoviesArray[0].setID(l);
 MoviesArray[0].setDVD_Title(qwe);
 MoviesArray[1].setPrice(o);
-MoviesArray[1].setStatus(k);
+MoviesArray[1].setID(k);
 MoviesArray[1].setDVD_Title(qwer);
 
 
-    double sum = 0, average = 0;
+    double sum = 0, average = 0,x;
 	int a,b,counter = 0;
 	string q,w,e,c;
 
@@ -181,7 +181,7 @@ MoviesArray[1].setDVD_Title(qwer);
 
 				switch(b)
 				{
-					case 1: DisplayNumberGenres();
+					case 1: //DisplayNumberGenres();
 							break;
 					case 2: for(int i=0;i<10;i++) //i değeri kadar girdi yapılırsa çalışır.
                             {
@@ -191,7 +191,15 @@ MoviesArray[1].setDVD_Title(qwer);
                                     average = sum / counter;
                                     cout << average;
 							break;
-					case 3:
+					case 3: cout << "Enter input price: " << endl;
+                            cin >> x;
+                            for(int i=0;i<10;i++)
+                            {
+                                if((MoviesArray[i].getPrice()) > x)
+                                {
+                                    cout <<MoviesArray[i].getDVD_Title() << endl;
+                                }
+                            }
 							break;
 					case 4: for(int i=0;i<10;i++)
                             {
@@ -256,22 +264,44 @@ string SearchByID(string NewID)
 }
 string CompareMovies(string Mov1, string Mov2)
 {
-    bool v=false ,b=false;
+    bool v = false ,b = false;
     double qw,we;
+    string wq,ew;
 	for(int i=0;i<10;i++)
 	{
         if(MoviesArray[i].getID() == Mov1)
+        {
             v = true;
-            
-        if(MoviesArray[i].getID() == Mov2)
+            qw = MoviesArray[i].getPrice();
+            wq = MoviesArray[i].getDVD_Title();
+        }
+        else if(MoviesArray[i].getID() == Mov2)
+        {
             b = true;
-            
-        while(b = true && v = true)
-
+            we = MoviesArray[i].getPrice();
+            ew = MoviesArray[i].getDVD_Title();
+        }
 
 	}
+	if((b = true) && (v = true))
+        {
+            if(qw > we)
+            {
+                cout << wq << "(ID:" << Mov1 << ") is more expensive than " << ew << "(ID:" << Mov2 << ")" << endl;
+            }
+            else if(qw == we)
+            {
+                cout << wq << "(ID:" << Mov1 << ") 's price is equal to " << ew << "(ID:" << Mov2 << ")" << endl;
+            }
+            else
+                cout << ew << "(ID:" << Mov2 << ") is more expensive than " << wq << "(ID:" << Mov1 << ")" << endl;
+        }
+        else
+        {
+            cout << "Wrong input.";
+        }
 }
-int DisplayNumberGenres()
+/*int DisplayNumberGenres()
 {
     int
     for(int i=0; i<10; i++)
